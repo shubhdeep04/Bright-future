@@ -1,12 +1,24 @@
 import { useState, useEffect } from "react";
 import api from "../../utils/api";
 import toast from "react-hot-toast";
-import { FiTrash2, FiCheck, FiX } from "react-icons/fi";
-
+import { FiTrash2, FiCheck, FiX, FiEdit } from "react-icons/fi";
 export default function AdminTestimonials() {
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+
+
+
+
+
+  const [form, setForm] = useState({
+  name: "",
+  role: "",
+  rating: 5,
+  message: "",
+});
+
+const [editingId, setEditingId] = useState(null);
 
   const load = () => {
     setLoading(true);
@@ -42,6 +54,58 @@ export default function AdminTestimonials() {
     }
   };
 
+
+
+const handleEdit = (testimonial) => {
+  setForm({
+    name: testimonial.name,
+    role: testimonial.role,
+    rating: testimonial.rating,
+    message: testimonial.message,
+  });
+
+  setEditingId(testimonial._id);
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    if (editingId) {
+      await api.put(`/testimonials/${editingId}`, form);
+      toast.success("Testimonial updated");
+    } else {
+      await api.post("/testimonials", form);
+      toast.success("Testimonial added");
+    }
+
+    setForm({
+      name: "",
+      role: "",
+      rating: 5,
+      message: "",
+    });
+
+    setEditingId(null);
+    load();
+  } catch (err) {
+    toast.error(err?.response?.data?.message || "Failed");
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const filtered =
     filter === "all"
       ? testimonials
@@ -52,6 +116,77 @@ export default function AdminTestimonials() {
   return (
     <div>
       <h1 className="font-display font-bold text-3xl mb-6">Testimonials</h1>
+
+<form
+  onSubmit={handleSubmit}
+  className="bg-chalk border border-white/10 rounded-card p-6 mb-8"
+>
+  <div className="grid md:grid-cols-2 gap-4">
+
+    <input
+      type="text"
+      placeholder="Name"
+      value={form.name}
+      onChange={(e) =>
+        setForm({ ...form, name: e.target.value })
+      }
+      className="border p-2 rounded"
+      required
+    />
+
+    <input
+      type="text"
+      placeholder="Role"
+      value={form.role}
+      onChange={(e) =>
+        setForm({ ...form, role: e.target.value })
+      }
+      className="border p-2 rounded"
+      required
+    />
+
+    <input
+      type="number"
+      min="1"
+      max="5"
+      value={form.rating}
+      onChange={(e) =>
+        setForm({ ...form, rating: e.target.value })
+      }
+      className="border p-2 rounded"
+    />
+
+    <textarea
+      placeholder="Message"
+      rows="4"
+      value={form.message}
+      onChange={(e) =>
+        setForm({ ...form, message: e.target.value })
+      }
+      className="border p-2 rounded md:col-span-2"
+      required
+    />
+
+  </div>
+
+  <button
+    type="submit"
+    className="mt-4 bg-marigold px-4 py-2 rounded text-white"
+  >
+    {editingId ? "Update Testimonial" : "Add Testimonial"}
+  </button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
 
       <div className="flex flex-wrap gap-3 mb-6">
         {["all", "approved", "pending"].map((f) => (

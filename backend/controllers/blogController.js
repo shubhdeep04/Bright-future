@@ -9,6 +9,24 @@ const createBlog = async (req, res, next) => {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const getBlogs = async (req, res, next) => {
   try {
     const { category } = req.query;

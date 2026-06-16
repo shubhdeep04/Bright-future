@@ -15,6 +15,31 @@ const getAllContent = async (req, res, next) => {
   }
 };
 
+
+
+
+const createContact = async (req, res, next) => {
+  try {
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+
+    const contact = await Contact.create(req.body);
+
+    res.status(201).json({
+      message: "Message sent successfully",
+      contact
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+
+
+
+
 // @desc    Update or create a content key (admin)
 // @route   PUT /api/content/:key
 const updateContent = async (req, res, next) => {
