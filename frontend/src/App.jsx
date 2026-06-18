@@ -18,6 +18,7 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import VerifyEmail from "./pages/VerifyEmail";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
 import DonorDashboard from "./pages/DonorDashboard";
@@ -71,6 +72,7 @@ function App() {
                 <Route path="/blog/:slug" element={<BlogDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/verify-email" element={<VerifyEmail />} />
 
                 {/* Donor Dashboard */}
                 <Route
