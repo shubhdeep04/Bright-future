@@ -1,115 +1,4 @@
-// import PageHero from "../components/PageHero";
-// import { useContent } from "../context/ContentContext";
-// import { FiAward, FiFileText } from "react-icons/fi";
 
-// const team = [
-//   {
-//     name: "Dr. Meera Joshi",
-//     role: "Founder & Director",
-//     img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
-//   },
-//   {
-//     name: "Arjun Patel",
-//     role: "Program Manager - Education",
-//     img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=400&auto=format&fit=crop",
-//   },
-//   {
-//     name: "Sneha Kulkarni",
-//     role: "Head of Volunteer Relations",
-//     img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop",
-//   },
-//   {
-//     name: "Vikram Singh",
-//     role: "Finance & Operations Lead",
-//     img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
-//   },
-// ];
-
-// export default function About() {
-//   const { content } = useContent();
-
-//   return (
-//     <div>
-//       <PageHero
-//         eyebrow="About Us"
-//         title="Our Story, Our People, Our Promise"
-//         subtitle="Twelve years of working alongside communities to make education accessible for every child."
-//       />
-
-//       {/* History */}
-//       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid lg:grid-cols-2 gap-12 items-center">
-//         <div>
-//           <p className="text-terracotta font-semibold text-sm uppercase tracking-widest mb-2">
-//             Our History
-//           </p>
-//           <h2 className="font-display font-bold text-3xl md:text-4xl mb-4">How It All Began</h2>
-//           <p className="text-slate leading-relaxed">{content.ngo_history}</p>
-//         </div>
-//         <div className="aspect-[4/3] rounded-card overflow-hidden border border-white/10 shadow-lg">
-//           <img
-//             src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop"
-//             alt="Volunteers and children at a learning center"
-//             className="w-full h-full object-cover"
-//           />
-//         </div>
-//       </section>
-
-//       {/* Founder Message */}
-//       <section className="py-16 relative overflow-hidden border-y border-white/5">
-//         <div className="absolute inset-0 bg-gradient-to-br from-marigold/15 via-transparent to-terracotta/10"></div>
-//         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-//           <div className="w-16 h-16 rounded-full bg-marigold/20 text-marigold flex items-center justify-center mx-auto mb-6">
-//             <FiAward size={28} />
-//           </div>
-//           <p className="font-display text-xl md:text-2xl leading-relaxed italic mb-6 text-ink">
-//             "{content.founder_message}"
-//           </p>
-//           <p className="text-marigold font-semibold">{content.founder_name}</p>
-//         </div>
-//       </section>
-
-//       {/* Team */}
-//       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-//         <div className="text-center max-w-2xl mx-auto mb-12">
-//           <p className="text-terracotta font-semibold text-sm uppercase tracking-widest mb-2">
-//             Our People
-//           </p>
-//           <h2 className="font-display font-bold text-3xl md:text-4xl">Meet the Team</h2>
-//         </div>
-//         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-//           {team.map((m, i) => (
-//             <div key={i} className="text-center group">
-//               <div className="aspect-square rounded-card overflow-hidden mb-4 border border-white/10">
-//                 <img
-//                   src={m.img}
-//                   alt={m.name}
-//                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-//                 />
-//               </div>
-//               <h3 className="font-display font-bold text-lg">{m.name}</h3>
-//               <p className="text-sm text-slate">{m.role}</p>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* Registration Details */}
-//       <section className="bg-white/[0.03] py-16">
-//         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="bg-chalk rounded-card p-8 border border-white/10 flex items-start gap-4">
-//             <div className="w-12 h-12 rounded-full bg-leaf/15 text-leaf flex items-center justify-center shrink-0">
-//               <FiFileText size={22} />
-//             </div>
-//             <div>
-//               <h3 className="font-display font-bold text-xl mb-2">Registration & Legal Status</h3>
-//               <p className="text-slate leading-relaxed">{content.registration_details}</p>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// }
 import PageHero from "../components/PageHero";
 import { useContent } from "../context/ContentContext";
 import {
@@ -123,30 +12,61 @@ import {
 
 const team = [
   {
-    name: "Dr. Meera Joshi",
+    name: "Mrs. Pragya Bhatnagar",
     role: "Founder & Director",
     img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
   },
   {
-    name: "Arjun Patel",
-    role: "Program Manager - Education",
+    name: "Mr. Abhishek Tiwari",
+    role: "Project Manager",
     img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=400&auto=format&fit=crop",
   },
   {
-    name: "Sneha Kulkarni",
-    role: "Head of Volunteer Relations",
+    name: "Mr. Mahendra Telang",
+    role: "Field Manager",
     img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop",
   },
   {
-    name: "Vikram Singh",
-    role: "Finance & Operations Lead",
+    name: "MS. Vidhya Yadav",
+    role: "Program Coordinator",
     img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
   },
+
+
+{
+    name: "MS. Trisha Dhoke",
+    role: "Program Coordinator",
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+  },
+
+
+{
+    name: "MS. Deepa Gautam",
+    role: "Office Administrator",
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+  },
+
+{
+    name: "Mr. Aniket Thakur",
+    role: "Trainer",
+    img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=400&auto=format&fit=crop",
+  },
+
+
+
+
+
 ];
+
+    
+
+
+
+
 
 const stats = [
   {
-    number: "12+",
+    number: "3+",
     label: "Years of Service",
   },
   {
@@ -190,7 +110,7 @@ export default function About() {
       <PageHero
         eyebrow="About Us"
         title="Our Story, Our People, Our Promise"
-        subtitle="Twelve years of working alongside communities to make education accessible for every child."
+        subtitle="Three years of working alongside communities to make education accessible for every child."
       />
 
       {/* History */}
@@ -233,7 +153,7 @@ export default function About() {
 
           <div className="space-y-8">
             <div className="border-l-4 border-marigold pl-6">
-              <h3 className="font-bold text-lg">2014</h3>
+              <h3 className="font-bold text-lg">2024</h3>
               <p className="text-slate">
                 NGO established with a mission to support education for
                 underserved children.
@@ -241,18 +161,18 @@ export default function About() {
             </div>
 
             <div className="border-l-4 border-marigold pl-6">
-              <h3 className="font-bold text-lg">2017</h3>
+              <h3 className="font-bold text-lg">2025</h3>
               <p className="text-slate">
                 Expanded learning programs into rural communities.
               </p>
             </div>
 
-            <div className="border-l-4 border-marigold pl-6">
+            {/* <div className="border-l-4 border-marigold pl-6">
               <h3 className="font-bold text-lg">2021</h3>
               <p className="text-slate">
                 Reached over 10,000 beneficiaries through educational support.
               </p>
-            </div>
+            </div> */}
 
             <div className="border-l-4 border-marigold pl-6">
               <h3 className="font-bold text-lg">2026</h3>
@@ -328,9 +248,7 @@ export default function About() {
               </h3>
 
               <p className="text-slate leading-relaxed">
-                A world where every child has equal access to education,
-                opportunities, and the resources needed to build a successful
-                future.
+                To create an empowered and self-reliant society through quality education, skill development, innovation,and social transformation.
               </p>
             </div>
 

@@ -202,17 +202,32 @@ export default function Events() {
   }, [searchQuery]);
 
   useEffect(() => {
-    setLoading(true);
-    setSearchQuery("");
-    setDebouncedSearch("");
-    setSelectedCategory("all");
-    setVisibleCount(6); // Reset pagination on tab change
+    const loadEvents = async () => {
+      setLoading(true);
+      setSearchQuery("");
+      setDebouncedSearch("");
+      setSelectedCategory("all");
+      setVisibleCount(6); // Reset pagination on tab change
 
-    api
-      .get(`/events?type=${tab}`)
-      .then((r) => setEvents(r.data))
-      .catch(() => setEvents([]))
-      .finally(() => setLoading(false));
+      const healthy = await api.isHealthy();
+      if (!healthy) {
+        console.warn("Backend health unavailable; skipping events load.");
+        setEvents([]);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const r = await api.get(`/events?type=${tab}`);
+        setEvents(r.data);
+      } catch (err) {
+        setEvents([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEvents();
   }, [tab]);
 
   // Extract unique categories dynamically from database
@@ -253,6 +268,13 @@ export default function Events() {
       toast.error("Please fill in your name and email");
       return;
     }
+
+    const healthy = await api.isHealthy();
+    if (!healthy) {
+      toast.error("Service unavailable. Please try again later.");
+      return;
+    }
+
     setSubmitting(true);
     try {
       await api.post(`/events/${modalEvent._id}/register`, form);

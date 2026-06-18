@@ -30,10 +30,15 @@ export const ContentProvider = ({ children }) => {
 
   const refresh = async () => {
     try {
-      const { data } = await api.get("/content");
-      setContent({ ...fallback, ...data });
+      const health = await api.health();
+      if (health.data?.status === "OK" && health.data?.dbStatus === "connected") {
+        const { data } = await api.get("/content");
+        setContent({ ...fallback, ...data });
+      } else {
+        console.warn("Backend health check failed or DB disconnected; using fallback content.");
+      }
     } catch (e) {
-      // use fallback silently
+      console.warn("Content load skipped due to backend health check failure.", e);
     } finally {
       setLoaded(true);
     }

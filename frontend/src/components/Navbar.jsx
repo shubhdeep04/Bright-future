@@ -41,11 +41,11 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         <Link to="/" className="flex items-center gap-2 group">
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-marigold to-terracotta flex items-center justify-center text-white font-display font-bold text-xl shadow-lg shadow-marigold/30 group-hover:rotate-6 transition-transform">
-            BF
+            PE
           </div>
           <div className="leading-tight">
-            <p className="font-display font-bold text-lg text-ink">Bright Futures</p>
-            <p className="text-xs text-slate -mt-1">Foundation</p>
+            <p className="font-display font-bold text-lg text-ink">Pragya Education</p>
+            <p className="text-xs text-slate -mt-1">Sociaty</p>
           </div>
         </Link>
 
