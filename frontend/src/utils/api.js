@@ -12,4 +12,15 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.health = () => api.get("/health");
+
+api.isHealthy = async () => {
+  try {
+    const { data } = await api.health();
+    return data?.status === "OK" && data?.dbStatus === "connected";
+  } catch (err) {
+    return false;
+  }
+};
+
 export default api;

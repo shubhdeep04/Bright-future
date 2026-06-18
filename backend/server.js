@@ -75,8 +75,14 @@ app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/analytics", require("./routes/analyticsRoutes"));
 app.use("/api/upload", require("./routes/uploadRoutes"));
 
+let dbConnected = false;
+
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", message: "API is running" });
+  res.json({
+    status: "OK",
+    message: "API is running",
+    dbStatus: dbConnected ? "connected" : "disconnected",
+  });
 });
 
 app.use(notFound);
@@ -84,17 +90,23 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-// 🔥 IMPORTANT FIX
 const startServer = async () => {
   try {
-    await connectDB(); // WAIT for DB
-
-    app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
-});
+    await connectDB();
+    dbConnected = true;
   } catch (err) {
-    console.log("❌ Server startup error:", err);
+    dbConnected = false;
+    console.error("❌ MongoDB connection failed:", err.message);
+    if (process.env.NODE_ENV === "production") {
+      console.error("Exiting because MongoDB is required in production.");
+      process.exit(1);
+    }
+    console.warn("Continuing without MongoDB. Some routes may fail until the database is available.");
   }
+
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 };
 
 startServer();

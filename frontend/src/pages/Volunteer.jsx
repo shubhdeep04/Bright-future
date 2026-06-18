@@ -60,6 +60,13 @@ export default function Volunteer() {
       toast.error("Please fill in all required fields");
       return;
     }
+
+    const healthy = await api.isHealthy();
+    if (!healthy) {
+      toast.error("Service unavailable. Please try again later.");
+      return;
+    }
+
     setLoading(true);
     try {
       await api.post("/volunteers", { ...form, skills, age: Number(form.age) || undefined });

@@ -9,8 +9,19 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([api.get("/analytics/dashboard"), api.get("/donations/stats")])
-      .then(([a, b]) => {
+    const loadDashboard = async () => {
+      const healthy = await api.isHealthy();
+      if (!healthy) {
+        console.warn("Backend health unavailable; skipping admin dashboard load.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const [a, b] = await Promise.all([
+          api.get("/analytics/dashboard"),
+          api.get("/donations/stats"),
+        ]);
         setStats(a.data);
         const formatted = b.data.monthly
           .map((m) => ({
@@ -19,9 +30,14 @@ export default function AdminDashboard() {
           }))
           .reverse();
         setMonthly(formatted);
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+      } catch (err) {
+        console.warn("Admin dashboard load failed:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDashboard();
   }, []);
 
   if (loading) {
