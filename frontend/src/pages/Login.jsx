@@ -180,7 +180,7 @@ export default function Login() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="w-14 h-14 rounded-full bg-ink flex items-center justify-center text-marigold font-display font-bold text-xl border-2 border-marigold mx-auto mb-3">
-            BF
+            PE
           </div>
           <h1 className="font-display font-bold text-2xl md:text-3xl">Welcome Back</h1>
           <p className="text-slate text-sm mt-1">Login to access your dashboard</p>

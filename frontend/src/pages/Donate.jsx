@@ -22,7 +22,23 @@ export default function Donate() {
     if (user) {
       setForm((f) => ({ ...f, name: user.name, email: user.email }));
     }
-    api.get("/campaigns?active=true").then((r) => setCampaigns(r.data)).catch(() => {});
+
+    const loadCampaigns = async () => {
+      const healthy = await api.isHealthy();
+      if (!healthy) {
+        console.warn("Backend health unavailable; skipping donation campaign load.");
+        return;
+      }
+
+      try {
+        const { data } = await api.get("/campaigns?active=true");
+        setCampaigns(data);
+      } catch (err) {
+        console.warn("Donation campaign load failed:", err);
+      }
+    };
+
+    loadCampaigns();
   }, [user]);
 
   const handleAmountSelect = (val) => {
