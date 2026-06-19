@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  /* ====== DARK "AURORA" THEME ====== */
+  /* Base surfaces */
+  --color-paper: #0B0F1A;        /* main background */
+  --color-paper-dark: #070A12;   /* deeper background / footer */
+  --color-chalk: #131829;        /* card surface */
+  --color-ink: #E7ECFB;          /* primary text (light on dark) */
+  --color-ink-light: #B7C0DE;    /* secondary text */
+  --color-slate: #8A93B8;        /* muted text */
+
+  /* Accents */
+  --color-marigold: #7C5CFC;      /* primary accent - violet */
+  --color-marigold-dark: #6440F0; /* primary accent hover */
+  --color-terracotta: #22D3EE;    /* secondary accent - cyan */
+  --color-leaf: #34D399;          /* success / green accent */
+
+  /* Typography */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Sora', sans-serif;
+
+  --radius-card: 1.25rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(124, 92, 252, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(52, 211, 153, 0.08) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Subtle grid texture (replaces old "ruled-bg" notebook lines) */
+.ruled-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glassmorphism surface */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Margin line accent - now a glowing vertical line */
+.margin-line {
+  position: relative;
+}
+.margin-line::before {
+  content: '';
+  position: absolute;
+  left: 2.5rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--color-marigold), transparent);
+  opacity: 0.4;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-marigold);
+  border-radius: 10px;
+}
+
+/* Focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--color-marigold);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Gradient text highlight (replaces old marker-underline) */
+.marker-underline {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(90deg, var(--color-marigold), var(--color-terracotta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Card hover lift + glow */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgba(124, 92, 252, 0.35);
+  border-color: rgba(124, 92, 252, 0.4) !important;
+}
+
+/* Glow ring for important CTAs */
+.glow-ring {
+  box-shadow: 0 0 0 1px rgba(124, 92, 252, 0.4), 0 8px 30px rgba(124, 92, 252, 0.35);
+}
+
+/* Animated counter wrapper */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Floating gradient blobs (used in hero/CTAs) */
+@keyframes floatSlow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -30px) scale(1.05); }
+}
+.float-blob {
+  animation: floatSlow 12s ease-in-out infinite;
+}
+
+/* Infinite horizontal marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
