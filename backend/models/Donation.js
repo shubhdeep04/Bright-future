@@ -16,18 +16,16 @@ const donationSchema = new mongoose.Schema(
       enum: ["pending", "success", "failed"],
       default: "pending",
     },
-    receiptNumber: { type: String, unique: true },
+    receiptNumber: {
+      type: String,
+      unique: true,
+      sparse: true,
+      default: () => "BFF" + Date.now() + Math.floor(Math.random() * 1000), // ✅ pre hook hataya
+    },
     isAnonymous: { type: Boolean, default: false },
     panNumber: { type: String },
   },
   { timestamps: true }
 );
-
-donationSchema.pre("save", function (next) {
-  if (!this.receiptNumber) {
-    this.receiptNumber = "EDU" + Date.now() + Math.floor(Math.random() * 1000);
-  }
-  next();
-});
 
 module.exports = mongoose.model("Donation", donationSchema);

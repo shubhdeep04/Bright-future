@@ -20,8 +20,8 @@ const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
   fileFilter: (req, file, cb) => {
-    const allowed = /jpeg|jpg|png|gif|webp|mp4|mov|avi/;
-    const ext = path.extname(file.originalname).toLowerCase();
+    const allowed = /jpeg|jpg|png|gif|webp|mp4|mov|avi|avif/; // ✅ avif added
+    const ext = path.extname(file.originalname).toLowerCase().replace(".", "");
     if (allowed.test(ext)) return cb(null, true);
     cb(new Error("Only images and videos are allowed"));
   },

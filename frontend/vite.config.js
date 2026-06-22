@@ -11,16 +11,19 @@ export default defineConfig({
 
     proxy: {
       '/api': {
+        // Always proxy to the IPv4 loopback to avoid LAN/IPv6 resolution issues
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
-        secure: false
+        secure: false,
+        ws: false,
       },
 
       '/uploads': {
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
-        secure: false
-      }
-    }
+        secure: false,
+        ws: false,
+      },
+    },
   }
 })

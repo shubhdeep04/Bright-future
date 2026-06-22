@@ -1,0 +1,25 @@
+{
+  "name": "bright-future-main",
+  "version": "1.0.0",
+  "description": "A full-stack NGO website built with React (Vite + Tailwind CSS v4) on the frontend and Node.js + Express + MongoDB on the backend.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbpv/Bright-future.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sbpv/Bright-future/issues"
+  },
+  "homepage": "https://github.com/sbpv/Bright-future#readme",
+  "dependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

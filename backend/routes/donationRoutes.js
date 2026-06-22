@@ -10,19 +10,21 @@ const {
 } = require("../controllers/donationController");
 const { protect, admin } = require("../middleware/authMiddleware");
 
-// Public/optional auth
+// Public/optional auth — guest ya logged-in dono donate kar sakte hain
 router.post("/", (req, res, next) => {
-  // allow guest donations - try to attach user if token present
   const auth = req.headers.authorization;
   if (auth && auth.startsWith("Bearer")) {
-    return protect(req, res, () => createDonation(req, res, next));
+    protect(req, res, (err) => {
+      if (err) return next(err);
+      createDonation(req, res, next);
+    });
+  } else {
+    createDonation(req, res, next);
   }
-  return createDonation(req, res, next);
 });
 
 router.get("/stats", getDonationStats);
 router.put("/:id/confirm", confirmDonation);
-
 router.get("/my", protect, getMyDonations);
 router.get("/", protect, admin, getDonations);
 router.delete("/:id", protect, admin, deleteDonation);
