@@ -57,7 +57,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://effortless-trifle-ac9f9a.netlify.app",
+    "https://pragyaeducation.netlify.app",
   ],
   credentials: true,
 }));
