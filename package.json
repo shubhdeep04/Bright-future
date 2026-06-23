@@ -4,13 +4,11 @@
   "description": "A full-stack NGO website built with React (Vite + Tailwind CSS v4) on the frontend and Node.js + Express + MongoDB on the backend.",
   "main": "index.js",
   "scripts": {
-   
-  "dev": "vite",
-  "build": "npx vite build",
-  "lint": "eslint .",
-  "preview": "npx vite preview"
-},
- 
+    "dev": "vite",
+    "build": "npx vite build",
+    "lint": "eslint .",
+    "preview": "npx vite preview"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sbpv/Bright-future.git"
@@ -24,6 +22,7 @@
   },
   "homepage": "https://github.com/sbpv/Bright-future#readme",
   "dependencies": {
-    "concurrently": "^10.0.3"
+    "concurrently": "^10.0.3",
+    "razorpay": "^2.9.6"
   }
 }

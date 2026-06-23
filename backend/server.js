@@ -81,6 +81,7 @@ app.use("/api/content", require("./routes/contentRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/analytics", require("./routes/analyticsRoutes"));
 app.use("/api/upload", require("./routes/uploadRoutes"));
+app.use("/api/payment", require("./routes/paymentRoutes"));
 
 let dbConnected = false;
 
