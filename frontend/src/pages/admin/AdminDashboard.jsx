@@ -8,37 +8,58 @@ export default function AdminDashboard() {
   const [monthly, setMonthly] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadDashboard = async () => {
-      const healthy = await api.isHealthy();
-      if (!healthy) {
-        console.warn("Backend health unavailable; skipping admin dashboard load.");
-        setLoading(false);
-        return;
-      }
+  // useEffect(() => {
+  //   const loadDashboard = async () => {
+  //     const healthy = await api.isHealthy();
+  //     if (!healthy) {
+  //       console.warn("Backend health unavailable; skipping admin dashboard load.");
+  //       setLoading(false);
+  //       return;
+  //     }
 
-      try {
-        const [a, b] = await Promise.all([
-          api.get("/analytics/dashboard"),
-          api.get("/donations/stats"),
-        ]);
-        setStats(a.data);
-        const formatted = b.data.monthly
-          .map((m) => ({
-            name: `${m._id.month}/${m._id.year}`,
-            total: m.total,
-          }))
-          .reverse();
-        setMonthly(formatted);
-      } catch (err) {
-        console.warn("Admin dashboard load failed:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //     try {
+  //       const [a, b] = await Promise.all([
+  //         api.get("/analytics/dashboard"),
+  //         api.get("/donations/stats"),
+  //       ]);
+  //       setStats(a.data);
+  //       const formatted = b.data.monthly
+  //         .map((m) => ({
+  //           name: `${m._id.month}/${m._id.year}`,
+  //           total: m.total,
+  //         }))
+  //         .reverse();
+  //       setMonthly(formatted);
+  //     } catch (err) {
+  //       console.warn("Admin dashboard load failed:", err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    loadDashboard();
-  }, []);
+  //   loadDashboard();
+  // }, []);
+
+useEffect(() => {
+  Promise.allSettled([
+    api.get("/analytics/dashboard"),
+    api.get("/donations/stats"),
+  ]).then(([analytics, stats]) => {
+    if (analytics.status === "fulfilled") setStats(analytics.value.data);
+    if (stats.status === "fulfilled") {
+      const formatted = stats.value.data.monthly
+        .map((m) => ({
+          name: `${m._id.month}/${m._id.year}`,
+          total: m.total,
+        }))
+        .reverse();
+      setMonthly(formatted);
+    }
+  }).finally(() => setLoading(false));
+}, []);
+
+
+
 
   if (loading) {
     return (

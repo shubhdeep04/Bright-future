@@ -1,175 +1,4 @@
-// import { useState, useEffect } from "react";
-// import PageHero from "../components/PageHero";
-// import { FiCalendar, FiMapPin, FiUsers, FiX } from "react-icons/fi";
-// import api from "../utils/api";
-// import toast from "react-hot-toast";
 
-// const fallbackImg =
-//   "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800&auto=format&fit=crop";
-
-// export default function Events() {
-//   const [tab, setTab] = useState("upcoming");
-//   const [events, setEvents] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [modalEvent, setModalEvent] = useState(null);
-//   const [form, setForm] = useState({ name: "", email: "", phone: "" });
-//   const [submitting, setSubmitting] = useState(false);
-
-//   useEffect(() => {
-//     setLoading(true);
-//     api
-//       .get(`/events?type=${tab}`)
-//       .then((r) => setEvents(r.data))
-//       .catch(() => setEvents([]))
-//       .finally(() => setLoading(false));
-//   }, [tab]);
-
-//   const handleRegister = async (e) => {
-//     e.preventDefault();
-//     if (!form.name || !form.email) {
-//       toast.error("Please fill in your name and email");
-//       return;
-//     }
-//     setSubmitting(true);
-//     try {
-//       await api.post(`/events/${modalEvent._id}/register`, form);
-//       toast.success("Registered successfully! See you there.");
-//       setModalEvent(null);
-//       setForm({ name: "", email: "", phone: "" });
-//     } catch (err) {
-//       toast.error(err?.response?.data?.message || "Registration failed");
-//     } finally {
-//       setSubmitting(false);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <PageHero
-//         eyebrow="Events"
-//         title="Our Events & Activities"
-//         subtitle="Join us at our upcoming events or explore the impact of past gatherings, fundraisers, and awareness drives."
-//       />
-
-//       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-//         <div className="flex justify-center gap-3 mb-10">
-//           {["upcoming", "past"].map((t) => (
-//             <button
-//               key={t}
-//               onClick={() => setTab(t)}
-//               className={`px-6 py-2.5 rounded-full font-semibold text-sm capitalize transition-colors border-2 ${
-//                 tab === t ? "bg-marigold border-marigold text-white" : "border-white/10 text-slate hover:border-marigold"
-//               }`}
-//             >
-//               {t} Events
-//             </button>
-//           ))}
-//         </div>
-
-//         {loading ? (
-//           <div className="flex justify-center py-20">
-//             <div className="w-10 h-10 border-4 border-marigold border-t-transparent rounded-full animate-spin"></div>
-//           </div>
-//         ) : events.length === 0 ? (
-//           <p className="text-center text-slate py-20">No {tab} events at the moment. Check back soon!</p>
-//         ) : (
-//           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//             {events.map((e) => (
-//               <div key={e._id} className="bg-chalk rounded-card overflow-hidden border border-white/10 hover-lift flex flex-col">
-//                 <div className="h-44 bg-white/5 overflow-hidden">
-//                   <img src={e.image || fallbackImg} alt={e.title} className="w-full h-full object-cover" />
-//                 </div>
-//                 <div className="p-5 flex flex-col flex-1">
-//                   <p className="text-xs font-semibold text-marigold uppercase tracking-wide mb-1">
-//                     {e.category}
-//                   </p>
-//                   <h3 className="font-display font-bold text-lg mb-2">{e.title}</h3>
-//                   <p className="text-sm text-slate leading-relaxed mb-4 line-clamp-3">{e.description}</p>
-//                   <div className="mt-auto space-y-2 text-sm text-ink">
-//                     <p className="flex items-center gap-2">
-//                       <FiCalendar className="text-terracotta shrink-0" />
-//                       {new Date(e.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
-//                     </p>
-//                     <p className="flex items-center gap-2">
-//                       <FiMapPin className="text-terracotta shrink-0" /> {e.location}
-//                     </p>
-//                     {e.maxParticipants > 0 && (
-//                       <p className="flex items-center gap-2">
-//                         <FiUsers className="text-terracotta shrink-0" />
-//                         {e.registrations?.length || 0} / {e.maxParticipants} registered
-//                       </p>
-//                     )}
-//                   </div>
-//                   {tab === "upcoming" && (
-//                     <button
-//                       onClick={() => setModalEvent(e)}
-//                       className="mt-4 w-full bg-gradient-to-r from-marigold to-terracotta text-white font-semibold py-2.5 rounded-full hover:shadow-lg hover:shadow-marigold/30 transition-colors"
-//                     >
-//                       Register Now
-//                     </button>
-//                   )}
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         )}
-//       </section>
-
-//       {modalEvent && (
-//         <div className="fixed inset-0 bg-ink/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-//           <div className="bg-paper rounded-card max-w-md w-full p-6 md:p-8 relative animate-fade-up">
-//             <button
-//               onClick={() => setModalEvent(null)}
-//               className="absolute top-4 right-4 text-slate hover:text-ink"
-//             >
-//               <FiX size={22} />
-//             </button>
-//             <h3 className="font-display font-bold text-xl mb-1">{modalEvent.title}</h3>
-//             <p className="text-sm text-slate mb-5">
-//               {new Date(modalEvent.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })} • {modalEvent.location}
-//             </p>
-//             <form onSubmit={handleRegister} className="space-y-4">
-//               <div>
-//                 <label className="block text-sm font-semibold mb-2">Full Name *</label>
-//                 <input
-//                   required
-//                   value={form.name}
-//                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-//                   className="w-full px-4 py-3 rounded-xl border-2 border-white/10 focus:border-marigold focus:bg-white/[0.04] outline-none transition-colors"
-//                 />
-//               </div>
-//               <div>
-//                 <label className="block text-sm font-semibold mb-2">Email *</label>
-//                 <input
-//                   type="email"
-//                   required
-//                   value={form.email}
-//                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-//                   className="w-full px-4 py-3 rounded-xl border-2 border-white/10 focus:border-marigold focus:bg-white/[0.04] outline-none transition-colors"
-//                 />
-//               </div>
-//               <div>
-//                 <label className="block text-sm font-semibold mb-2">Phone</label>
-//                 <input
-//                   value={form.phone}
-//                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-//                   className="w-full px-4 py-3 rounded-xl border-2 border-white/10 focus:border-marigold focus:bg-white/[0.04] outline-none transition-colors"
-//                 />
-//               </div>
-//               <button
-//                 type="submit"
-//                 disabled={submitting}
-//                 className="w-full bg-gradient-to-r from-marigold to-terracotta text-white font-bold py-3.5 rounded-full hover:shadow-lg hover:shadow-marigold/30 transition-colors disabled:opacity-60"
-//               >
-//                 {submitting ? "Registering..." : "Confirm Registration"}
-//               </button>
-//             </form>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
 import { useState, useEffect, useMemo } from "react";
 import PageHero from "../components/PageHero";
 import { FiCalendar, FiMapPin, FiUsers, FiX, FiSearch, FiFilter, FiRefreshCw } from "react-icons/fi";
@@ -201,34 +30,46 @@ export default function Events() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  useEffect(() => {
-    const loadEvents = async () => {
-      setLoading(true);
-      setSearchQuery("");
-      setDebouncedSearch("");
-      setSelectedCategory("all");
-      setVisibleCount(6); // Reset pagination on tab change
+  // useEffect(() => {
+  //   const loadEvents = async () => {
+  //     setLoading(true);
+  //     setSearchQuery("");
+  //     setDebouncedSearch("");
+  //     setSelectedCategory("all");
+  //     setVisibleCount(6); // Reset pagination on tab change
 
-      const healthy = await api.isHealthy();
-      if (!healthy) {
-        console.warn("Backend health unavailable; skipping events load.");
-        setEvents([]);
-        setLoading(false);
-        return;
-      }
+  //     const healthy = await api.isHealthy();
+  //     if (!healthy) {
+  //       console.warn("Backend health unavailable; skipping events load.");
+  //       setEvents([]);
+  //       setLoading(false);
+  //       return;
+  //     }
 
-      try {
-        const r = await api.get(`/events?type=${tab}`);
-        setEvents(r.data);
-      } catch (err) {
-        setEvents([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //     try {
+  //       const r = await api.get(`/events?type=${tab}`);
+  //       setEvents(r.data);
+  //     } catch (err) {
+  //       setEvents([]);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    loadEvents();
-  }, [tab]);
+  //   loadEvents();
+  // }, [tab]);
+// PEHLE wala poora loadEvents function hatao aur yeh lagao:
+useEffect(() => {
+  setLoading(true);
+  api
+    .get(`/events?type=${tab}`)
+    .then((r) => setEvents(r.data))
+    .catch(() => setEvents([]))
+    .finally(() => setLoading(false));
+}, [tab]);
+
+
+
 
   // Extract unique categories dynamically from database
   const categories = useMemo(() => {

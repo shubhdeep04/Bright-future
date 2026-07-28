@@ -16,12 +16,26 @@ const campaignSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// campaignSchema.pre("save", function (next) {
+//   if (!this.slug) {
+//     this.slug = this.title
+//       .toLowerCase()
+//       .replace(/[^a-z0-9]+/g, "-")
+//       .replace(/(^-|-$)/g, "") + "-" + Date.now();
+//   }
+//   next();
+// });
+
+
 campaignSchema.pre("save", function (next) {
   if (!this.slug) {
-    this.slug = this.title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "") + "-" + Date.now();
+    this.slug =
+      this.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "") +
+      "-" +
+      Date.now();
   }
   next();
 });
