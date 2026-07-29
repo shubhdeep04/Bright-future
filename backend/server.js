@@ -131,8 +131,6 @@
 // startServer();\
 
 
-
-
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -149,40 +147,54 @@ const app = express();
 // =======================
 // CORS CONFIG
 // =======================
-app.use(cors({
-  origin: function (origin, callback) {
 
-    const allowedOrigins = [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://pragyaeducatio.netlify.app",
-    ];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://pragyaeducatio.netlify.app",
+  "https://pragyaeducation.netlify.app"
+];
 
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
 
-  },
-  credentials: true,
-  methods: [
-    "GET",
-    "POST",
-    "PUT",
-    "DELETE",
-    "PATCH",
-    "OPTIONS"
-  ],
-  allowedHeaders: [
-    "Content-Type",
-    "Authorization"
-  ]
-}));
-app.options("*", cors());
+app.use(
+  cors({
+    origin: function (origin, callback) {
+
+      // Allow Postman / server requests
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(null, false);
+    },
+
+    credentials: true,
+
+    methods: [
+      "GET",
+      "POST",
+      "PUT",
+      "PATCH",
+      "DELETE",
+      "OPTIONS"
+    ],
+
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization"
+    ]
+  })
+);
+
+
 // =======================
 // BODY PARSER
 // =======================
+
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -190,9 +202,12 @@ app.use(express.urlencoded({ extended: true }));
 // =======================
 // STATIC FILES
 // =======================
+
 app.use(
   "/uploads",
-  express.static(path.join(__dirname, "uploads"))
+  express.static(
+    path.join(__dirname, "uploads")
+  )
 );
 
 
@@ -231,19 +246,25 @@ let dbConnected = false;
 
 
 app.get("/", (req, res) => {
+
   res.json({
     status: "OK",
-    message: "API is running",
+    message: "API is running"
   });
+
 });
 
 
 app.get("/api/health", (req, res) => {
+
   res.json({
     status: "OK",
     message: "API is running",
-    dbStatus: dbConnected ? "connected" : "disconnected",
+    dbStatus: dbConnected
+      ? "connected"
+      : "disconnected"
   });
+
 });
 
 
@@ -253,6 +274,7 @@ app.get("/api/health", (req, res) => {
 // =======================
 
 app.use(notFound);
+
 app.use(errorHandler);
 
 
@@ -274,25 +296,27 @@ const startServer = async () => {
 
     console.log("MongoDB Connected");
 
-  } catch (err) {
+  } catch (error) {
 
-    dbConnected = false;
-
-    console.error(
-      "MongoDB connection failed:",
-      err.message
+    console.log(
+      "MongoDB Error:",
+      error.message
     );
 
   }
 
 
-  app.listen(PORT, "0.0.0.0", () => {
+  app.listen(
+    PORT,
+    "0.0.0.0",
+    () => {
 
-    console.log(
-      `Server running on port ${PORT}`
-    );
+      console.log(
+        `Server running on port ${PORT}`
+      );
 
-  });
+    }
+  );
 
 };
 
