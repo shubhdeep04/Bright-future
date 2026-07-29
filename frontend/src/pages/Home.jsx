@@ -159,15 +159,13 @@ useEffect(() => {
     api.get("/events?type=upcoming"),
   ]).then(([camps, testi, evts]) => {
     if (camps.status === "fulfilled")
-      setCampaigns(camps.value.data.slice(0, 1));
+      setCampaigns(Array.isArray(camps.value?.data) ? camps.value.data.slice(0, 1) : []);
     if (testi.status === "fulfilled")
-      setTestimonials(testi.value.data.slice(0, 3));
+      setTestimonials(Array.isArray(testi.value?.data) ? testi.value.data.slice(0, 3) : []);
     if (evts.status === "fulfilled")
-      setEvents(evts.value.data.slice(0, 3));
+      setEvents(Array.isArray(evts.value?.data) ? evts.value.data.slice(0, 3) : []);
   });
 }, []);
-
-
 
 
 
