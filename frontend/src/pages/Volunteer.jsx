@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import PageHero from "../components/PageHero";
 import { FiCheckCircle, FiUserPlus } from "react-icons/fi";
 import api from "../utils/api";
@@ -61,11 +61,11 @@ export default function Volunteer() {
       return;
     }
 
-    const healthy = await api.isHealthy();
-    if (!healthy) {
-      toast.error("Service unavailable. Please try again later.");
-      return;
-    }
+    // const healthy = await api.isHealthy();
+    // if (!healthy) {
+    //   toast.error("Service unavailable. Please try again later.");
+    //   return;
+    // }
 
     setLoading(true);
     try {

@@ -1,4 +1,4 @@
-// import { useState, useEffect } from "react";
+﻿// import { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 // import PageHero from "../components/PageHero";
 // import api from "../utils/api";
@@ -90,7 +90,7 @@ function formatDate(d) {
   return new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 }
 
-/* ── Skeleton card ── */
+/* â”€â”€ Skeleton card â”€â”€ */
 function SkeletonCard() {
   return (
     <div className="bg-chalk border border-white/10 rounded-card overflow-hidden animate-pulse">
@@ -105,7 +105,7 @@ function SkeletonCard() {
   );
 }
 
-/* ── Blog card ── */
+/* â”€â”€ Blog card â”€â”€ */
 function BlogCard({ b, featured = false }) {
   const mins = readTime(b.content);
   const avatar = b.authorAvatar || `${FALLBACK_AVATAR}${encodeURIComponent(b.author || "A")}`;
@@ -122,7 +122,7 @@ function BlogCard({ b, featured = false }) {
         <div className="p-7 md:p-10 flex flex-col justify-center flex-1">
           <div className="flex items-center gap-2 mb-3 flex-wrap">
             <span className="bg-marigold/15 text-marigold text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-              ⭐ Featured
+              â­ Featured
             </span>
             {b.category && (
               <span className="text-xs font-semibold text-terracotta uppercase tracking-wide">
@@ -248,7 +248,7 @@ export default function Blog() {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
-        {/* ── Search + Filter bar ── */}
+        {/* â”€â”€ Search + Filter bar â”€â”€ */}
         {!loading && blogs.length > 0 && (
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-10">
             {/* Search */}
@@ -257,7 +257,7 @@ export default function Blog() {
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search posts…"
+                placeholder="Search postsâ€¦"
                 className="w-full pl-10 pr-9 py-2.5 rounded-full border border-white/10 bg-white/[0.03] text-sm text-ink placeholder:text-slate focus:outline-none focus:border-marigold/50 transition-colors"
               />
               {search && (
@@ -283,7 +283,7 @@ export default function Blog() {
           </div>
         )}
 
-        {/* ── Loading ── */}
+        {/* â”€â”€ Loading â”€â”€ */}
         {loading && (
           <div>
             <div className="h-64 bg-white/5 rounded-card animate-pulse mb-10" />
@@ -293,7 +293,7 @@ export default function Blog() {
           </div>
         )}
 
-        {/* ── Empty ── */}
+        {/* â”€â”€ Empty â”€â”€ */}
         {!loading && blogs.length === 0 && (
           <div className="text-center py-24">
             <FiBookOpen size={40} className="mx-auto text-slate mb-4" />
@@ -301,26 +301,26 @@ export default function Blog() {
           </div>
         )}
 
-        {/* ── Featured post ── */}
+        {/* â”€â”€ Featured post â”€â”€ */}
         {!loading && featured && activeCategory === "All" && !search && (
           <BlogCard b={featured} featured />
         )}
 
-        {/* ── Grid ── */}
+        {/* â”€â”€ Grid â”€â”€ */}
         {!loading && filtered.length > 0 && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map(b => <BlogCard key={b._id} b={b} />)}
           </div>
         )}
 
-        {/* ── No results ── */}
+        {/* â”€â”€ No results â”€â”€ */}
         {!loading && blogs.length > 0 && filtered.length === 0 && (
           <div className="text-center py-20">
             <p className="text-slate">No posts match your search. <button onClick={() => { setSearch(""); setActiveCategory("All"); }} className="text-marigold underline">Clear filters</button></p>
           </div>
         )}
 
-        {/* ── Result count ── */}
+        {/* â”€â”€ Result count â”€â”€ */}
         {!loading && (search || activeCategory !== "All") && filtered.length > 0 && (
           <p className="text-xs text-slate mt-8 text-center">{filtered.length} post{filtered.length !== 1 ? "s" : ""} found</p>
         )}

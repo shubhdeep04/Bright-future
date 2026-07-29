@@ -1,4 +1,4 @@
-
+﻿
 import { useState, useEffect, useMemo } from "react";
 import PageHero from "../components/PageHero";
 import { FiCalendar, FiMapPin, FiUsers, FiX, FiSearch, FiFilter, FiRefreshCw } from "react-icons/fi";
@@ -110,11 +110,11 @@ useEffect(() => {
       return;
     }
 
-    const healthy = await api.isHealthy();
-    if (!healthy) {
-      toast.error("Service unavailable. Please try again later.");
-      return;
-    }
+    // const healthy = await api.isHealthy();
+    // if (!healthy) {
+    //   toast.error("Service unavailable. Please try again later.");
+    //   return;
+    // }
 
     setSubmitting(true);
     try {
@@ -286,7 +286,7 @@ useEffect(() => {
                         {e.maxParticipants > 0 && (
                           <p className={`flex items-center gap-2 ${isFull ? "text-red-500 font-semibold" : ""}`}>
                             <FiUsers className="text-terracotta shrink-0" />
-                            {e.registrations?.length || 0} / {e.maxParticipants} slots taken {isFull && "• Full"}
+                            {e.registrations?.length || 0} / {e.maxParticipants} slots taken {isFull && "â€¢ Full"}
                           </p>
                         )}
                       </div>
@@ -339,7 +339,7 @@ useEffect(() => {
             </button>
             <h3 className="font-display font-bold text-xl mb-1 text-ink">{modalEvent.title}</h3>
             <p className="text-sm text-slate mb-5">
-              {new Date(modalEvent.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })} • {modalEvent.location}
+              {new Date(modalEvent.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })} â€¢ {modalEvent.location}
             </p>
             <form onSubmit={handleRegister} className="space-y-4">
               <div>
