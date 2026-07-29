@@ -154,7 +154,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://pragyaeducation.netlify.app",
+      "https://pragyaeducatio.netlify.app/"
     ],
     credentials: true,
   })
