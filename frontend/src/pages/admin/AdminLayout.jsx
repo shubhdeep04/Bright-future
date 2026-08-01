@@ -1,3 +1,4 @@
+
 // import { NavLink, Outlet, useNavigate } from "react-router-dom";
 // import {
 //   FiGrid,
@@ -14,6 +15,7 @@
 //   FiUserCheck,
 //   FiMenu,
 //   FiX,
+//   FiBriefcase,
 // } from "react-icons/fi";
 // import { useAuth } from "../../context/AuthContext";
 // import { useState } from "react";
@@ -28,6 +30,7 @@
 //   { to: "/admin/gallery", label: "Gallery", icon: FiImage },
 //   { to: "/admin/blogs", label: "Blog", icon: FiFileText },
 //   { to: "/admin/testimonials", label: "Testimonials", icon: FiHeart },
+//   { to: "/admin/collaborations", label: "Collaborations", icon: FiBriefcase },
 //   { to: "/admin/contacts", label: "Contact Queries", icon: FiMessageSquare },
 //   { to: "/admin/users", label: "Users", icon: FiUsers },
 // ];
@@ -93,6 +96,8 @@
 //     </div>
 //   );
 // }
+
+
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   FiGrid,
@@ -135,7 +140,7 @@ export default function AdminLayout() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex min-h-[calc(100vh-5rem)]">
+    <div className="flex min-h-screen">
       {/* Mobile toggle */}
       <button
         onClick={() => setOpen(!open)}
@@ -146,7 +151,7 @@ export default function AdminLayout() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:sticky top-20 lg:top-20 h-[calc(100vh-5rem)] w-64 glass border-r border-white/10 text-ink p-4 overflow-y-auto z-40 transition-transform duration-300 ${
+        className={`fixed lg:sticky top-0 h-screen w-64 glass border-r border-white/10 text-ink p-4 overflow-y-auto z-40 transition-transform duration-300 ${
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >

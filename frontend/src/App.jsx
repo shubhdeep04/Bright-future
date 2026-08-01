@@ -1,3 +1,6 @@
+
+
+// export default App;
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { Toaster } from "react-hot-toast";
 // import { AuthProvider } from "./context/AuthContext";
@@ -39,6 +42,7 @@
 // import AdminUsers from "./pages/admin/AdminUsers";
 // import Collaboration from "./pages/Collaboration";
 // import AdminCollaborations from "./pages/admin/AdminCollaborations";
+
 // function App() {
 //   return (
 //     <AuthProvider>
@@ -74,9 +78,8 @@
 //                 <Route path="/login" element={<Login />} />
 //                 <Route path="/register" element={<Register />} />
 //                 <Route path="/verify-email" element={<VerifyEmail />} />
+//                 <Route path="/collaborate" element={<Collaboration />} />
 
-// <Route path="/collaborate" element={<Collaboration />} />
-// <Route path="collaborations" element={<AdminCollaborations />} />
 //                 {/* Donor Dashboard */}
 //                 <Route
 //                   path="/donor-dashboard"
@@ -115,6 +118,7 @@
 //                   <Route path="gallery" element={<AdminGallery />} />
 //                   <Route path="blogs" element={<AdminBlogs />} />
 //                   <Route path="testimonials" element={<AdminTestimonials />} />
+//                   <Route path="collaborations" element={<AdminCollaborations />} />
 //                   <Route path="contacts" element={<AdminContacts />} />
 //                   <Route path="users" element={<AdminUsers />} />
 //                 </Route>
@@ -132,7 +136,9 @@
 // }
 
 // export default App;
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext";
 import { ContentProvider } from "./context/ContentContext";
@@ -174,6 +180,83 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import Collaboration from "./pages/Collaboration";
 import AdminCollaborations from "./pages/admin/AdminCollaborations";
 
+function AppLayout() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      {!isAdminRoute && <Navbar />}
+      <div className="flex-1">
+        <Routes>
+          {/* Public Pages */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/programs" element={<Programs />} />
+          <Route path="/donate" element={<Donate />} />
+          <Route path="/volunteer" element={<Volunteer />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/collaborate" element={<Collaboration />} />
+
+          {/* Donor Dashboard */}
+          <Route
+            path="/donor-dashboard"
+            element={
+              <ProtectedRoute>
+                <DonorDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Volunteer Dashboard */}
+          <Route
+            path="/volunteer-dashboard"
+            element={
+              <ProtectedRoute>
+                <VolunteerDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin Panel */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<AdminDashboard />} />
+            <Route path="content" element={<AdminContent />} />
+            <Route path="donations" element={<AdminDonations />} />
+            <Route path="campaigns" element={<AdminCampaigns />} />
+            <Route path="volunteers" element={<AdminVolunteers />} />
+            <Route path="events" element={<AdminEvents />} />
+            <Route path="gallery" element={<AdminGallery />} />
+            <Route path="blogs" element={<AdminBlogs />} />
+            <Route path="testimonials" element={<AdminTestimonials />} />
+            <Route path="collaborations" element={<AdminCollaborations />} />
+            <Route path="contacts" element={<AdminContacts />} />
+            <Route path="users" element={<AdminUsers />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && <FloatingActions />}
+    </div>
+  );
+}
+
 function App() {
   return (
     <AuthProvider>
@@ -191,75 +274,7 @@ function App() {
               success: { iconTheme: { primary: "#F4A636", secondary: "#1E3A5F" } },
             }}
           />
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <div className="flex-1">
-              <Routes>
-                {/* Public Pages */}
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/programs" element={<Programs />} />
-                <Route path="/donate" element={<Donate />} />
-                <Route path="/volunteer" element={<Volunteer />} />
-                <Route path="/events" element={<Events />} />
-                <Route path="/gallery" element={<Gallery />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogDetail />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/verify-email" element={<VerifyEmail />} />
-                <Route path="/collaborate" element={<Collaboration />} />
-
-                {/* Donor Dashboard */}
-                <Route
-                  path="/donor-dashboard"
-                  element={
-                    <ProtectedRoute>
-                      <DonorDashboard />
-                    </ProtectedRoute>
-                  }
-                />
-
-                {/* Volunteer Dashboard */}
-                <Route
-                  path="/volunteer-dashboard"
-                  element={
-                    <ProtectedRoute>
-                      <VolunteerDashboard />
-                    </ProtectedRoute>
-                  }
-                />
-
-                {/* Admin Panel */}
-                <Route
-                  path="/admin"
-                  element={
-                    <ProtectedRoute role="admin">
-                      <AdminLayout />
-                    </ProtectedRoute>
-                  }
-                >
-                  <Route index element={<AdminDashboard />} />
-                  <Route path="content" element={<AdminContent />} />
-                  <Route path="donations" element={<AdminDonations />} />
-                  <Route path="campaigns" element={<AdminCampaigns />} />
-                  <Route path="volunteers" element={<AdminVolunteers />} />
-                  <Route path="events" element={<AdminEvents />} />
-                  <Route path="gallery" element={<AdminGallery />} />
-                  <Route path="blogs" element={<AdminBlogs />} />
-                  <Route path="testimonials" element={<AdminTestimonials />} />
-                  <Route path="collaborations" element={<AdminCollaborations />} />
-                  <Route path="contacts" element={<AdminContacts />} />
-                  <Route path="users" element={<AdminUsers />} />
-                </Route>
-
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
-            <Footer />
-            <FloatingActions />
-          </div>
+          <AppLayout />
         </BrowserRouter>
       </ContentProvider>
     </AuthProvider>
