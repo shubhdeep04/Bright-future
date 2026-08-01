@@ -229,7 +229,7 @@ app.use("/api/testimonials", require("./routes/testimonialRoutes"));
 
 app.use("/api/beneficiaries", require("./routes/beneficiaryRoutes"));
 app.use("/api/content", require("./routes/contentRoutes"));
-
+app.use("/api/collaborations", require("./routes/collaborationRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/analytics", require("./routes/analyticsRoutes"));
 
